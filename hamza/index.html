@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AIOS + AI Audit Brief — Prepared for Hamza Wardere</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink:       #0f0f0f;
+    --muted:     #6b6b6b;
+    --rule:      #e2e2e2;
+    --accent:    #1a1a1a;
+    --tag-bg:    #f4f4f4;
+    --green:     #1e6641;
+    --green-bg:  #edf7f1;
+    --amber:     #7a4a00;
+    --amber-bg:  #fdf4e3;
+    --page:      #fafaf8;
+  }
+
+  html { font-size: 16px; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    background: var(--page);
+    color: var(--ink);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Page shell ── */
+  .page {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 72px 40px 96px;
+  }
+
+  /* ── Header ── */
+  .header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 56px;
+    gap: 24px;
+  }
+  .brand {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.01em;
+    color: var(--ink);
+  }
+  .brand span { color: var(--muted); font-style: italic; }
+  .doc-meta {
+    text-align: right;
+    font-size: 0.78rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ── Hero ── */
+  .hero { margin-bottom: 64px; }
+  .label {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+    display: block;
+  }
+  h1 {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: clamp(2.4rem, 5vw, 3.6rem);
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin-bottom: 24px;
+  }
+  h1 em {
+    font-style: italic;
+    color: var(--muted);
+  }
+  .hero-sub {
+    font-size: 1.05rem;
+    color: var(--muted);
+    max-width: 540px;
+    line-height: 1.75;
+  }
+
+  /* ── Sections ── */
+  section { margin-bottom: 56px; }
+
+  h2 {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: 1.55rem;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  p { color: #3a3a3a; margin-bottom: 14px; font-size: 0.97rem; }
+  p:last-child { margin-bottom: 0; }
+
+  /* ── Three layers ── */
+  .layers {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin: 28px 0;
+  }
+  .layer {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+  }
+  .layer-badge {
+    width: 120px;
+    min-width: 120px;
+    padding: 18px 16px;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+  }
+  .layer-body {
+    flex: 1;
+    padding: 18px 20px;
+    border-left: 2px solid rgba(0,0,0,0.07);
+  }
+  .layer-name {
+    font-size: 0.97rem;
+    font-weight: 500;
+    margin-bottom: 4px;
+    color: var(--ink);
+  }
+  .layer-desc {
+    font-size: 0.875rem;
+    color: var(--muted);
+    line-height: 1.55;
+    margin: 0;
+  }
+  .layer-pipe   { background: #f5f5f5; }
+  .layer-brain  { background: #f0f3ff; }
+  .layer-os     { background: #f0f7f3; }
+  .badge-pipe   { color: #555; background: #ececec; }
+  .badge-brain  { color: #2c3fa0; background: #e4e9ff; }
+  .badge-os     { color: var(--green); background: #d8efdf; }
+  .layer-body.pipe   { border-color: #ddd; }
+  .layer-body.brain  { border-color: #c0caee; }
+  .layer-body.os     { border-color: #a8d9b8; }
+
+  /* ── Arrow connector ── */
+  .arrow {
+    text-align: center;
+    color: #bbb;
+    font-size: 0.8rem;
+    padding: 2px 0 2px 60px;
+    letter-spacing: 0.05em;
+    display: block;
+  }
+
+  /* ── Checklist ── */
+  .checklist { list-style: none; margin: 20px 0; }
+  .checklist li {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--rule);
+    font-size: 0.95rem;
+  }
+  .checklist li:last-child { border-bottom: none; }
+  .check-icon {
+    width: 22px;
+    height: 22px;
+    min-width: 22px;
+    border-radius: 50%;
+    background: var(--tag-bg);
+    border: 1.5px solid var(--rule);
+    margin-top: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.65rem;
+  }
+  .check-info strong {
+    display: block;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 3px;
+  }
+  .check-info span { color: var(--muted); font-size: 0.875rem; }
+  .tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+  .tag-free    { background: var(--green-bg); color: var(--green); }
+  .tag-paid    { background: var(--amber-bg); color: var(--amber); }
+  .tag-yours   { background: #f0f3ff; color: #2c3fa0; }
+  .tag-once    { background: #f0f3ff; color: #2c3fa0; }
+
+  /* ── Step blocks (sequence) ── */
+  .steps { margin: 28px 0; display: flex; flex-direction: column; gap: 14px; }
+  .step {
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+    padding: 20px 22px;
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    background: #fff;
+  }
+  .step-num {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: 1.6rem;
+    line-height: 1;
+    color: var(--muted);
+    min-width: 34px;
+  }
+  .step-body { flex: 1; }
+  .step-title {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .step-price {
+    font-family: 'Instrument Serif', Georgia, serif;
+    color: var(--green);
+    font-size: 1.05rem;
+    margin-left: 6px;
+  }
+  .step-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.6; margin: 0; }
+  .step-prereq {
+    border-color: #a8d9b8;
+    background: var(--green-bg);
+  }
+
+  /* ── Four C's grid ── */
+  .cgrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin: 28px 0;
+  }
+  .ccard {
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    padding: 22px 22px;
+    background: #fff;
+  }
+  .ccard-head {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+  .ccard-letter {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: 1.9rem;
+    line-height: 1;
+    color: var(--green);
+  }
+  .ccard-name { font-size: 0.98rem; font-weight: 500; color: var(--ink); }
+  .ccard-tag {
+    font-size: 0.66rem;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 3px;
+  }
+  .ccard p { font-size: 0.875rem; color: var(--muted); line-height: 1.6; margin: 0; }
+
+  /* ── Callout ── */
+  .callout {
+    border-left: 3px solid var(--ink);
+    background: #f4f4f2;
+    padding: 16px 20px;
+    margin: 24px 0 0;
+    font-size: 0.92rem;
+    color: #2a2a2a;
+    border-radius: 0 8px 8px 0;
+  }
+  .callout strong { color: var(--ink); font-weight: 500; }
+
+  /* ── Cost table ── */
+  .cost-table { width: 100%; border-collapse: collapse; margin: 24px 0; }
+  .cost-table th {
+    text-align: left;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 0 12px 10px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .cost-table td {
+    padding: 13px 12px 13px 0;
+    font-size: 0.92rem;
+    border-bottom: 1px solid var(--rule);
+    color: #3a3a3a;
+    vertical-align: top;
+  }
+  .cost-table tr:last-child td { border-bottom: none; }
+  .cost-table .total td {
+    font-weight: 500;
+    color: var(--ink);
+    padding-top: 18px;
+    border-top: 2px solid var(--ink);
+    border-bottom: none;
+  }
+  .cost-num { font-weight: 500; color: var(--ink); white-space: nowrap; }
+  .cost-free { color: var(--green); font-weight: 500; }
+  .table-label {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 36px 0 4px;
+  }
+
+  /* ── Summary box ── */
+  .summary-box {
+    background: var(--ink);
+    color: #f5f5f0;
+    border-radius: 12px;
+    padding: 36px 40px;
+    margin-top: 48px;
+  }
+  .summary-box h2 {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: 1.4rem;
+    color: #f5f5f0;
+    border-color: rgba(255,255,255,0.15);
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+  }
+  .summary-box p { color: rgba(245,245,240,0.72); font-size: 0.92rem; }
+  .summary-box .cost-highlight {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: 2.4rem;
+    color: #f5f5f0;
+    line-height: 1;
+    margin: 20px 0 6px;
+  }
+  .summary-box .cost-note { font-size: 0.82rem; color: rgba(255,255,255,0.45); }
+
+  /* ── Footer ── */
+  .footer {
+    margin-top: 72px;
+    padding-top: 24px;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+
+  /* ── Print ── */
+  @media print {
+    body { background: white; }
+    .page { padding: 32px 0; }
+    .summary-box, .step-prereq, .callout { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+
+  @media (max-width: 600px) {
+    .page { padding: 40px 24px 64px; }
+    .header { flex-direction: column; gap: 12px; }
+    .doc-meta { text-align: left; }
+    .layer { flex-direction: column; gap: 0; }
+    .layer-badge { width: 100%; padding: 10px 16px; }
+    .summary-box { padding: 28px 24px; }
+    .step { padding: 16px 18px; gap: 12px; }
+    .cgrid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <header class="header">
+    <div class="brand">Arise Group <span>/ AIOS Delivery</span></div>
+    <div class="doc-meta">
+      Prepared for Hamza Wardere<br>
+      Proposal &nbsp;·&nbsp; June 2026
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <div class="hero">
+    <span class="label">Prepared for Hamza Wardere</span>
+    <h1>Your Firm,<br><em>Always Available</em></h1>
+    <p class="hero-sub">
+      An AI assistant that knows your deals, your portfolio, and your numbers —
+      reachable from your phone, 24 hours a day. Ask it anything. Get answers,
+      documents, and analysis back in seconds. Then a clear roadmap for everything
+      we automate next.
+    </p>
+  </div>
+
+  <!-- The Goal -->
+  <section>
+    <h2>The Goal</h2>
+    <p>
+      Right now, the firm runs through you. You answer the same questions about deals
+      and portfolio companies on repeat. You dig through spreadsheets for numbers you
+      already have somewhere. You draft the same LP updates and partner emails over and
+      over. And too often you make decisions without all the context in front of you.
+    </p>
+    <p>
+      This gives you an AI assistant that already knows your business — your pipeline,
+      your portfolio, your investors, your strategy, your history — and is reachable
+      from your phone the same way you'd text a partner.
+    </p>
+    <p>
+      You type a question. It responds with the answer, a document, a chart, or a
+      drafted email — usually in under 30 seconds. Then we go further: we map every
+      recurring task in the firm and build a plan to take them off your plate, one
+      by one.
+    </p>
+  </section>
+
+  <!-- How It Works -->
+  <section>
+    <h2>How It Works</h2>
+    <p>Three layers. Each one does one job.</p>
+
+    <div class="layers">
+
+      <div class="layer">
+        <div class="layer-badge badge-pipe">Channel</div>
+        <div class="layer-body pipe">
+          <div class="layer-name">The Pipe — Your Channels</div>
+          <p class="layer-desc">
+            Carries your messages back and forth. Nothing more. The assistant plugs into
+            the channels your team already uses — WhatsApp and Telegram —
+            so you reach it exactly like you'd message a person. We'll confirm which
+            channels to connect during setup.
+          </p>
+        </div>
+      </div>
+
+      <span class="arrow">↓</span>
+
+      <div class="layer">
+        <div class="layer-badge badge-brain">Claude</div>
+        <div class="layer-body brain">
+          <div class="layer-name">The Brain — Claude AI</div>
+          <p class="layer-desc">
+            The intelligence. Claude reads your message, reasons through it, and writes
+            a response. Made by Anthropic — among the most capable AI in the world, and
+            the standard most serious firms are now building on.
+          </p>
+        </div>
+      </div>
+
+      <span class="arrow">↓</span>
+
+      <div class="layer">
+        <div class="layer-badge badge-os">AIOS</div>
+        <div class="layer-body os">
+          <div class="layer-name">The OS — Your Business Context</div>
+          <p class="layer-desc">
+            What makes Claude smart about <em>your</em> firm specifically. Your deals,
+            your portfolio companies, your investors, your numbers, your strategy and
+            history. Without this layer Claude is a generic assistant. With it, Claude
+            becomes your chief of staff.
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+    <p>
+      Your channel delivers the message. Claude thinks. The AIOS is what Claude knows about
+      your business. The answer comes back wherever you sent it from.
+    </p>
+  </section>
+
+  <!-- What an AIOS Is — Four C's -->
+  <section>
+    <h2>What an AIOS Actually Is</h2>
+    <p>
+      "AIOS" stands for <strong>AI Operating System</strong> — and it's more than a chatbot.
+      A chatbot answers questions. An operating system runs things. The difference comes down
+      to four layers, often called the <strong>Four C's</strong>: <em>Context, Connections,
+      Capabilities, and Cadence.</em> Each one builds on the one before it.
+    </p>
+
+    <div class="cgrid">
+      <div class="ccard">
+        <div class="ccard-head">
+          <span class="ccard-letter">C</span>
+          <div>
+            <div class="ccard-name">Context</div>
+            <div class="ccard-tag">What it knows</div>
+          </div>
+        </div>
+        <p>
+          Everything the AI understands about your firm — your deals, portfolio, investors,
+          strategy, and how you like things done. This is the foundation. Skip it and you get
+          generic answers; nail it and the AI responds like someone who's worked here for years.
+        </p>
+      </div>
+
+      <div class="ccard">
+        <div class="ccard-head">
+          <span class="ccard-letter">C</span>
+          <div>
+            <div class="ccard-name">Connections</div>
+            <div class="ccard-tag">What it plugs into</div>
+          </div>
+        </div>
+        <p>
+          The systems where your work already lives — email, calendar, drive, CRM, your deal
+          and portfolio data. Connections let the AI pull real, current information instead of
+          guessing or waiting for you to paste it in.
+        </p>
+      </div>
+
+      <div class="ccard">
+        <div class="ccard-head">
+          <span class="ccard-letter">C</span>
+          <div>
+            <div class="ccard-name">Capabilities</div>
+            <div class="ccard-tag">What it can do</div>
+          </div>
+        </div>
+        <p>
+          The actions it can take on your behalf — draft and send an email, update a record,
+          generate a report or chart, kick off a multi-step workflow. This is where it stops
+          talking and starts doing the work.
+        </p>
+      </div>
+
+      <div class="ccard">
+        <div class="ccard-head">
+          <span class="ccard-letter">C</span>
+          <div>
+            <div class="ccard-name">Cadence</div>
+            <div class="ccard-tag">When it acts</div>
+          </div>
+        </div>
+        <p>
+          The schedule. Some things you ask for; others should just happen — a 7am daily brief,
+          an alert when a new deal comes in, a report every Friday. Cadence is what makes the
+          system proactive instead of waiting to be asked.
+        </p>
+      </div>
+    </div>
+
+    <p>
+      Build order matters: <strong>Context first</strong>, then Connections and Capabilities,
+      then Cadence — you never automate a workflow until it works by hand. That's exactly why
+      this rolls out in steps. The <strong>AIOS Install &amp; Setup</strong> lays the Context
+      and your first Connections; the <strong>AI Audit</strong> then maps which Capabilities and
+      Cadences are worth building next.
+    </p>
+  </section>
+
+  <!-- What You Can Do With It -->
+  <section>
+    <h2>What You Can Do With It</h2>
+    <p>From whichever channel your team uses, on any device, at any time:</p>
+    <ul class="checklist">
+      <li>
+        <div class="check-icon"></div>
+        <div class="check-info">
+          <strong>Ask about your pipeline</strong>
+          <span>"Where does the [deal name] acquisition stand?" — pulls from your live data and tells you exactly where each deal sits and what's next.</span>
+        </div>
+      </li>
+      <li>
+        <div class="check-icon"></div>
+        <div class="check-info">
+          <strong>Draft investor & partner communications</strong>
+          <span>"Write the quarterly LP update from these numbers" — it remembers the context and drafts it in your voice.</span>
+        </div>
+      </li>
+      <li>
+        <div class="check-icon"></div>
+        <div class="check-info">
+          <strong>Get a daily brief</strong>
+          <span>Each morning: where things stand across deals and portfolio, what needs your attention, what to focus on.</span>
+        </div>
+      </li>
+      <li>
+        <div class="check-icon"></div>
+        <div class="check-info">
+          <strong>Run analysis on demand</strong>
+          <span>"Show me returns by asset class this year vs last" — generates a chart and sends it back as an image.</span>
+        </div>
+      </li>
+      <li>
+        <div class="check-icon"></div>
+        <div class="check-info">
+          <strong>Strategy and planning</strong>
+          <span>"What should I focus on this week?" — answers with full awareness of your priorities, open items, and commitments.</span>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <!-- The Three Steps (Sequence) -->
+  <section>
+    <h2>How We Roll This Out — Three Steps</h2>
+    <p>
+      A clear order, on purpose. We lay the foundation, we figure out exactly what to
+      automate, and only then do we build. No guessing, no wasted spend.
+    </p>
+
+    <div class="steps">
+
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-title">
+            AIOS Install &amp; Setup
+            <span class="step-price">$750</span>
+            <span class="tag tag-once">One-time</span>
+          </div>
+          <p class="step-desc">
+            The foundation. We build your context layer, stand up the assistant, and
+            connect your data so the system actually knows your business. Once this is
+            live, you have an AI that answers as if it has worked at the firm for years —
+            reachable from your phone.
+          </p>
+        </div>
+      </div>
+
+      <div class="step step-prereq">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-title">
+            AI Audit
+            <span class="step-price">$750</span>
+            <span class="tag tag-once">One-time</span>
+          </div>
+          <p class="step-desc">
+            We map and score every recurring task across the firm and hand you a
+            prioritized, costed roadmap of what AI should take over — highest return
+            first. <strong>This is the prerequisite for any AI project.</strong> We don't
+            build automations until we know which ones are worth building.
+          </p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-title">
+            AI Projects
+            <span class="step-price">priced per project</span>
+          </div>
+          <p class="step-desc">
+            We build the automations from the audit roadmap — one at a time, highest ROI
+            first. Each project is scoped and quoted separately once the audit tells us
+            exactly what to build and what it's worth.
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="callout">
+      <strong>Why this order matters:</strong> the audit is what keeps you from spending
+      on the wrong things. It turns "we should use AI" into a ranked plan with real
+      numbers attached — so every dollar of build goes to the work that pays back fastest.
+    </div>
+  </section>
+
+  <!-- What the AI Audit Includes -->
+  <section>
+    <h2>What the AI Audit Includes</h2>
+    <p>
+      The audit is a deliverable, not a meeting. You walk away with a document you can act
+      on — and a plan we can build against. Here's what's in it:
+    </p>
+    <ul class="checklist">
+      <li>
+        <div class="check-icon"></div>
+        <div class="check-info">
+          <strong>Full task map</strong>
+          <span>Every recurring task across the firm, written down and grouped — the work that quietly eats your week, made visible.</span>
+        </div>
+      </li>
+      <li>
+        <div class="check-icon"></div>
+        <div class="check-info">
+          <strong>Automation score for each task</strong>
+          <span>Every task scored on impact × feasibility — how much time it costs you and how cleanly AI can take it over. The high-value, easy wins float to the top.</span>
+        </div>
+      </li>
+      <li>
+        <div class="check-icon"></div>
+        <div class="check-info">
+          <strong>Prioritized opportunity backlog</strong>
+          <span>A ranked list: what to automate first, second, third — and why, in plain terms.</span>
+        </div>
+      </li>
+      <li>
+        <div class="check-icon"></div>
+        <div class="check-info">
+          <strong>AI project roadmap</strong>
+          <span>The top opportunities turned into concrete, buildable projects — each with an effort estimate and an expected return, sequenced in order.</span>
+        </div>
+      </li>
+      <li>
+        <div class="check-icon"></div>
+        <div class="check-info">
+          <strong>Data &amp; systems inventory</strong>
+          <span>What tools and data the firm already has, what's connected, and what's missing before each project can run.</span>
+        </div>
+      </li>
+      <li>
+        <div class="check-icon"></div>
+        <div class="check-info">
+          <strong>Readout session</strong>
+          <span>A walkthrough of the findings and recommendations with you — so you decide what we build, in what order.</span>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <!-- Why This Matters -->
+  <section>
+    <h2>Why This Matters</h2>
+    <p>
+      You don't need to understand the engineering to see the value. Here's what changes
+      once this is in place:
+    </p>
+    <ul class="checklist">
+      <li>
+        <div class="check-icon"></div>
+        <div class="check-info">
+          <strong>You get time back</strong>
+          <span>The recurring work that fills your day — drafting, looking things up, pulling numbers — gets handled. The goal is hours per day where you can step away and nothing falls apart.</span>
+        </div>
+      </li>
+      <li>
+        <div class="check-icon"></div>
+        <div class="check-info">
+          <strong>You decide faster, with full context</strong>
+          <span>Every answer comes with the whole picture already loaded — no hunting across spreadsheets, inboxes, and folders first.</span>
+        </div>
+      </li>
+      <li>
+        <div class="check-icon"></div>
+        <div class="check-info">
+          <strong>Every automation compounds</strong>
+          <span>This isn't one tool. Each project we ship from the roadmap stacks on the last — the system gets more capable, and more of the firm runs without you.</span>
+        </div>
+      </li>
+      <li>
+        <div class="check-icon"></div>
+        <div class="check-info">
+          <strong>One assistant, not ten tools</strong>
+          <span>Instead of stitching together apps, you have a single place that knows your business and does the work — reachable the way you already communicate.</span>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <!-- Investment -->
+  <section>
+    <h2>The Investment</h2>
+    <p>
+      A single one-time onboarding fee gets the foundation live and the roadmap in your
+      hands. Everything after is scoped per project.
+    </p>
+
+    <table class="cost-table">
+      <thead>
+        <tr>
+          <th>Onboarding (one-time)</th>
+          <th>What it covers</th>
+          <th>Cost</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>AIOS Install &amp; Setup</strong></td>
+          <td>Context layer built, assistant stood up, your data connected.</td>
+          <td class="cost-num">$750</td>
+        </tr>
+        <tr>
+          <td><strong>AI Audit</strong></td>
+          <td>Task map, automation scoring, prioritized roadmap, readout. Prerequisite for projects.</td>
+          <td class="cost-num">$750</td>
+        </tr>
+        <tr class="total">
+          <td colspan="2"><strong>One-time onboarding bundle</strong></td>
+          <td class="cost-num">$1,500</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p class="table-label">Running costs — billed to you directly, not by Arise</p>
+    <table class="cost-table">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>What it covers</th>
+          <th>Cost</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Claude plan + usage</strong></td>
+          <td>The AI itself. On a Claude Enterprise plan this is a per-seat subscription (~$60/seat/mo) plus usage billed at standard API rates — pay only for what's used. Billed by Anthropic.</td>
+          <td class="cost-num">Your plan</td>
+        </tr>
+        <tr>
+          <td><strong>Server hosting</strong></td>
+          <td>A small cloud server that keeps the assistant running 24/7. Set up and maintained by Arise.</td>
+          <td class="cost-num">~$6–12/mo</td>
+        </tr>
+        <tr>
+          <td><strong>Channel delivery</strong></td>
+          <td>Message routing through your chosen channels (WhatsApp, Telegram). Free or near-free under standard volumes; we'll confirm once channels are picked.</td>
+          <td class="cost-free">~$0</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p style="margin-top: 20px;">
+      <strong>AI Projects</strong> are scoped and priced individually once the audit roadmap is
+      in hand — you only commit to the builds you choose, in the order you choose.
+    </p>
+  </section>
+
+  <!-- Summary -->
+  <div class="summary-box">
+    <h2>The Short Version</h2>
+    <p>
+      An AI assistant that knows your firm and lives in the channels your team already
+      uses — plus a clear, prioritized roadmap for everything we automate next.
+    </p>
+    <div class="cost-highlight">$1,500 one-time.</div>
+    <p class="cost-note">AIOS Install &amp; Setup ($750) + AI Audit ($750). Projects priced separately. Your Claude plan and hosting are billed to you directly.</p>
+    <p style="margin-top: 20px;">
+      Step 1 stands it up. Step 2 tells us exactly what to build. Step 3 is where the
+      firm starts running without you.
+    </p>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <span>Arise Group &nbsp;·&nbsp; arisegroup.ai</span>
+    <span>AIOS Client Brief — Hamza Wardere &nbsp;·&nbsp; v1.0</span>
+  </footer>
+
+</div>
+</body>
+</html>
